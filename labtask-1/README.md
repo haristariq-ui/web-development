@@ -21,7 +21,7 @@
 ## Technologies Used
 
 - HTML5
-- CSS3 with Media Queries
+- CSS with Media Queries
 - Responsive Grid Layout
 - Flexbox
 
