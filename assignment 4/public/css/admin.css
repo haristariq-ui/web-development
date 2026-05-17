@@ -1,0 +1,329 @@
+/* ===================================
+   ADMIN PANEL STYLES
+   =================================== */
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Futura', 'Century Gothic', 'Arial', sans-serif;
+    display: flex;              /* Sidebar + Main content side by side */
+    min-height: 100vh;
+    background: #f5f5f5;
+}
+
+/* ========== SIDEBAR ========== */
+.admin-sidebar {
+    width: 220px;
+    background: #000;          /* Black sidebar to match Cougar branding */
+    color: #fff;
+    padding: 30px 20px;
+    position: fixed;           /* Sidebar stays in place when scrolling */
+    top: 0;
+    left: 0;
+    height: 100vh;
+}
+
+.sidebar-logo {
+    font-size: 24px;
+    letter-spacing: 6px;
+    font-family: 'Bodoni Moda', 'Georgia', serif;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.sidebar-subtitle {
+    text-align: center;
+    font-size: 12px;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+}
+
+/* Sidebar navigation links */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.sidebar-nav a {
+    color: #ccc;
+    text-decoration: none;
+    padding: 12px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Hover effect on sidebar links */
+.sidebar-nav a:hover {
+    background: #222;
+    color: #fff;
+}
+
+/* Active link (current page) gets highlighted */
+.sidebar-nav a.active {
+    background: #333;
+    color: #fff;
+}
+
+/* ========== MAIN CONTENT AREA ========== */
+.admin-main {
+    margin-left: 220px;       /* Push content to the right of sidebar */
+    padding: 40px;
+    width: calc(100% - 220px);
+}
+
+.admin-main h1 {
+    font-size: 28px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #000;
+    padding-bottom: 10px;
+}
+
+/* ========== ALERT MESSAGES ========== */
+/* Green box for success messages */
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    border: 1px solid #c3e6cb;
+    font-size: 14px;
+}
+
+/* Red box for error messages */
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+    font-size: 14px;
+}
+
+/* ========== SUMMARY TEXT ========== */
+.summary-text {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+/* ========== PRODUCTS TABLE ========== */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;    /* Remove gaps between table cells */
+    background: #fff;
+    margin-top: 10px;
+}
+
+/* Table header styling */
+.admin-table thead {
+    background: #000;
+    color: #fff;
+}
+
+.admin-table th {
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Table body cells */
+.admin-table td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+/* Zebra striping - every other row gets a light background */
+.admin-table tbody tr:nth-child(even) {
+    background: #fafafa;
+}
+
+/* Hover effect on rows */
+.admin-table tbody tr:hover {
+    background: #f0f0f0;
+}
+
+/* Small thumbnail image in the table */
+.table-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+/* Stock colors */
+.stock-in {
+    color: #2ecc71;       /* Green for in-stock */
+    font-weight: 600;
+}
+
+.stock-out {
+    color: #e74c3c;       /* Red for out-of-stock */
+    font-weight: 600;
+}
+
+/* ========== ACTION BUTTONS ========== */
+.action-btns {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* Edit button - blue */
+.btn-edit {
+    padding: 6px 14px;
+    background: #3498db;
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: background 0.3s ease;
+}
+
+.btn-edit:hover {
+    background: #2980b9;
+}
+
+/* Delete button - red */
+.btn-delete {
+    padding: 6px 14px;
+    background: #e74c3c;
+    color: #fff;
+    border: none;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-delete:hover {
+    background: #c0392b;
+}
+
+/* ========== PRODUCT FORM (Add / Edit) ========== */
+.product-form {
+    background: #fff;
+    padding: 30px;
+    max-width: 600px;
+    border: 1px solid #e0e0e0;
+}
+
+/* Each form field group */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+/* Text inputs, number inputs, and select dropdowns */
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d0d0d0;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+}
+
+/* Focus effect on inputs */
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #000;
+}
+
+/* File input styling */
+.form-group input[type="file"] {
+    font-size: 14px;
+}
+
+/* Helper text below file input */
+.form-group small {
+    display: block;
+    font-size: 12px;
+    color: #888;
+    margin-top: 5px;
+}
+
+/* Image preview in edit form */
+.preview-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    margin-top: 5px;
+}
+
+/* Submit button */
+.btn-submit {
+    padding: 12px 30px;
+    background: #000;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-submit:hover {
+    background: #333;
+}
+
+/* ========== RESPONSIVE (small screens) ========== */
+@media (max-width: 768px) {
+    .admin-sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        padding: 20px;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .admin-main {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+    }
+
+    /* Make the table scroll horizontally on small screens */
+    .admin-table {
+        display: block;
+        overflow-x: auto;
+    }
+}
