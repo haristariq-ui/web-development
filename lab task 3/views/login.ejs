@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Cougar Store</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+
+    <!-- ========== ANNOUNCEMENT BAR ========== -->
+    <div class="announcement-bar">
+        FLAT 50% OFF ON ALL PRODUCTS-<a href="/sale">SHOP NOW</a>
+    </div>
+
+    <!-- ========== HEADER / NAVBAR ========== -->
+    <header class="header" id="main-header">
+        <nav class="nav-left" id="nav-menu">
+            <a href="/sale" class="sale-link">Sale</a>
+            <a href="/men">Men</a>
+            <a href="/women">Women</a>
+            <a href="/kids">Kids</a>
+            <a href="/new-arrivals">New Arrivals</a>
+            <!-- Show different links based on login status -->
+            <% if (typeof currentUser !== "undefined" && currentUser) { %>
+                <% if (currentUser.role === "admin") { %>
+                    <a href="/admin" class="admin-link">Admin</a>
+                <% } %>
+                <a href="/logout">Logout</a>
+            <% } else { %>
+                <a href="/login">Login</a>
+            <% } %>
+        </nav>
+        <div class="logo">
+            <a href="/">COUGAR</a>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+    </header>
+
+    <!-- ========== LOGIN FORM ========== -->
+    <section class="auth-section">
+        <div class="auth-card">
+            <h1>Welcome Back</h1>
+            <p class="auth-subtitle">Login to your account</p>
+
+            <!-- Show error message if login fails -->
+            <% if (typeof error !== "undefined" && error) { %>
+                <div class="auth-alert auth-alert-error"><%= error %></div>
+            <% } %>
+
+            <!-- Show success message -->
+            <% if (typeof success !== "undefined" && success) { %>
+                <div class="auth-alert auth-alert-success"><%= success %></div>
+            <% } %>
+
+            <form action="/login" method="POST" class="auth-form">
+
+                <!-- Email Field -->
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+
+                <!-- Password Field -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="auth-btn">Login</button>
+            </form>
+
+            <!-- Link to register page -->
+            <p class="auth-link">Don't have an account? <a href="/register">Register here</a></p>
+        </div>
+    </section>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
