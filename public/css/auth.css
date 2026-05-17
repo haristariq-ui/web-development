@@ -1,0 +1,170 @@
+/* ===================================
+   AUTH PAGES STYLES (Login & Register)
+   =================================== */
+
+/* Center the form on the page */
+.auth-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    padding: 40px 20px;
+}
+
+/* The card that holds the form */
+.auth-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    padding: 40px;
+    width: 100%;
+    max-width: 420px;
+}
+
+/* Page title */
+.auth-card h1 {
+    font-size: 28px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+/* Subtitle text */
+.auth-subtitle {
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* Each form field group */
+.auth-form .form-group {
+    margin-bottom: 18px;
+}
+
+/* Labels */
+.auth-form label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+/* Input fields */
+.auth-form input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d0d0d0;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.auth-form input:focus {
+    border-color: #000;
+}
+
+/* Submit button */
+.auth-btn {
+    width: 100%;
+    padding: 14px;
+    background: #000;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+}
+
+.auth-btn:hover {
+    background: #333;
+}
+
+/* Link below the form (e.g. "Already have an account?") */
+.auth-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.auth-link a {
+    color: #000;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.auth-link a:hover {
+    color: #555;
+}
+
+/* ===================================
+   FLASH MESSAGE ALERTS
+   =================================== */
+
+/* Error alert (red) */
+.auth-alert-error {
+    background: #fdecea;
+    color: #c0392b;
+    border: 1px solid #e74c3c;
+    padding: 12px 16px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Success alert (green) */
+.auth-alert-success {
+    background: #eafaf1;
+    color: #27ae60;
+    border: 1px solid #2ecc71;
+    padding: 12px 16px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* ===================================
+   FLASH MESSAGE BAR (for navbar-level messages)
+   =================================== */
+.flash-bar {
+    text-align: center;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.flash-bar.flash-success {
+    background: #eafaf1;
+    color: #27ae60;
+    border-bottom: 1px solid #2ecc71;
+}
+
+.flash-bar.flash-error {
+    background: #fdecea;
+    color: #c0392b;
+    border-bottom: 1px solid #e74c3c;
+}
+
+/* ===================================
+   RESPONSIVE
+   =================================== */
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 25px 20px;
+    }
+
+    .auth-card h1 {
+        font-size: 22px;
+    }
+}
