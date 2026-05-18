@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Order - Admin Panel - Cougar Store</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+    <!-- ========== SIDEBAR NAVIGATION ========== -->
+    <div class="admin-sidebar">
+        <h2 class="sidebar-logo">COUGAR</h2>
+        <p class="sidebar-subtitle">Admin Panel</p>
+
+        <nav class="sidebar-nav">
+            <a href="/admin">Dashboard</a>
+            <a href="/admin/add">Add Product</a>
+            <a href="/admin/orders" class="active">Orders</a>
+            <a href="/">Back to Store</a>
+        </nav>
+    </div>
+
+    <!-- ========== MAIN CONTENT AREA ========== -->
+    <div class="admin-main">
+
+        <h1>Edit Order Status</h1>
+
+        <!-- Order Info -->
+        <div class="order-card">
+            <!-- Order Header -->
+            <div class="order-header">
+                <div>
+                    <h3>Order by <%= order.customerName %></h3>
+                    <p class="order-date">
+                        Placed on: <%= new Date(order.orderDate).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" }) %>
+                    </p>
+                </div>
+                <div class="order-total-badge">
+                    Rs. <%= order.totalAmount.toLocaleString() %>
+                </div>
+            </div>
+
+            <!-- Customer Details -->
+            <div class="order-customer">
+                <h4>Customer Details</h4>
+                <p><strong>Name:</strong> <%= order.customerName %></p>
+                <p><strong>Phone:</strong> <%= order.phone %></p>
+                <p><strong>Address:</strong> <%= order.address %></p>
+            </div>
+
+            <!-- Items Table -->
+            <div class="order-items">
+                <h4>Items Ordered</h4>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Product</th>
+                            <th>Price (Rs.)</th>
+                            <th>Qty</th>
+                            <th>Subtotal (Rs.)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% order.items.forEach(function(item) { %>
+                            <tr>
+                                <td><img src="<%= item.image %>" alt="<%= item.name %>" class="table-img"></td>
+                                <td><%= item.name %></td>
+                                <td><%= item.price.toLocaleString() %></td>
+                                <td><%= item.quantity %></td>
+                                <td><%= (item.price * item.quantity).toLocaleString() %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Status Update Form -->
+            <div class="order-status-form">
+                <h4>Update Status</h4>
+                <form action="/admin/orders/edit/<%= order._id %>" method="POST" class="product-form">
+                    <div class="form-group">
+                        <label for="status">Order Status</label>
+                        <select id="status" name="status" required>
+                            <option value="Pending" <%= order.status === "Pending" ? "selected" : "" %>>Pending</option>
+                            <option value="Confirmed" <%= order.status === "Confirmed" ? "selected" : "" %>>Confirmed</option>
+                            <option value="Delivered" <%= order.status === "Delivered" ? "selected" : "" %>>Delivered</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-submit">Update Status</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

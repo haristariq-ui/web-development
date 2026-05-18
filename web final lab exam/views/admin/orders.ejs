@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders - Admin Panel - Cougar Store</title>
+
+    <!-- We use the same admin CSS file -->
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+    <!-- ========== SIDEBAR NAVIGATION ========== -->
+    <div class="admin-sidebar">
+        <h2 class="sidebar-logo">COUGAR</h2>
+        <p class="sidebar-subtitle">Admin Panel</p>
+
+        <nav class="sidebar-nav">
+            <!-- Link to the dashboard -->
+            <a href="/admin">Dashboard</a>
+
+            <!-- Link to the "Add Product" form page -->
+            <a href="/admin/add">Add Product</a>
+
+            <!-- Link to the orders page (this page) -->
+            <a href="/admin/orders" class="active">Orders</a>
+
+            <!-- Link back to the main store homepage -->
+            <a href="/">Back to Store</a>
+        </nav>
+    </div>
+
+    <!-- ========== MAIN CONTENT AREA ========== -->
+    <div class="admin-main">
+
+        <h1>Customer Orders</h1>
+
+        <!-- Summary: total number of orders -->
+        <p class="summary-text">Total Orders: <strong><%= orders.length %></strong></p>
+
+        <% if (orders.length > 0) { %>
+
+            <!-- Loop through each order -->
+            <% orders.forEach(function(order, index) { %>
+                <div class="order-card">
+                    <!-- Order Header -->
+                    <div class="order-header">
+                        <div>
+                            <h3>Order #<%= index + 1 %></h3>
+                            <p class="order-date">
+                                Placed on: <%= new Date(order.orderDate).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" }) %>
+                            </p>
+                        </div>
+                        <div class="order-header-right">
+                            <span class="status-badge status-<%= order.status ? order.status.toLowerCase() : 'pending' %>">
+                                <%= order.status || "Pending" %>
+                            </span>
+                            <div class="order-total-badge">
+                                Rs. <%= order.totalAmount.toLocaleString() %>
+                            </div>
+                            <a href="/admin/orders/edit/<%= order._id %>" class="btn-edit">Edit</a>
+                        </div>
+                    </div>
+
+                    <!-- Customer Details -->
+                    <div class="order-customer">
+                        <h4>Customer Details</h4>
+                        <p><strong>Name:</strong> <%= order.customerName %></p>
+                        <p><strong>Phone:</strong> <%= order.phone %></p>
+                        <p><strong>Address:</strong> <%= order.address %></p>
+                    </div>
+
+                    <!-- Ordered Items Table -->
+                    <div class="order-items">
+                        <h4>Items Ordered</h4>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Product</th>
+                                    <th>Price (Rs.)</th>
+                                    <th>Qty</th>
+                                    <th>Subtotal (Rs.)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% order.items.forEach(function(item) { %>
+                                    <tr>
+                                        <td><img src="<%= item.image %>" alt="<%= item.name %>" class="table-img"></td>
+                                        <td><%= item.name %></td>
+                                        <td><%= item.price.toLocaleString() %></td>
+                                        <td><%= item.quantity %></td>
+                                        <td><%= (item.price * item.quantity).toLocaleString() %></td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            <% }); %>
+
+        <% } else { %>
+            <div class="no-orders">
+                <p>No orders have been placed yet.</p>
+            </div>
+        <% } %>
+
+    </div>
+
+</body>
+</html>

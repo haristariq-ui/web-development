@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Cougar Clothing Store</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <div class="announcement-bar">
+        FLAT 50% OFF ON ALL PRODUCTS-<a href="/sale">SHOP NOW</a>
+    </div>
+    <header class="header" id="main-header">
+        <nav class="nav-left" id="nav-menu">
+            <a href="/sale" class="sale-link">Sale</a>
+            <a href="/onsale-products">On Sale</a>
+            <a href="/men">Men</a>
+            <a href="/women">Women</a>
+            <a href="/kids">Kids</a>
+            <a href="/new-arrivals">New Arrivals</a>
+            <% if (typeof currentUser !== "undefined" && currentUser) { %>
+                <% if (currentUser.role === "admin") { %>
+                    <a href="/admin" class="admin-link">Admin</a>
+                <% } else { %>
+                    <a href="/cart" class="cart-link">&#128722; Cart (<%= typeof cartCount !== "undefined" ? cartCount : 0 %>)</a>
+                    <a href="/my-orders" class="orders-link">My Orders</a>
+                <% } %>
+                <a href="/logout">Logout</a>
+            <% } else { %>
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            <% } %>
+        </nav>
+        <div class="logo">
+            <a href="/">COUGAR</a>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+    </header>
+
+    <!-- Flash Messages -->
+    <% if (typeof success !== "undefined" && success.length > 0) { %>
+        <div class="flash-bar flash-success"><%= success %></div>
+    <% } %>
+    <% if (typeof error !== "undefined" && error.length > 0) { %>
+        <div class="flash-bar flash-error"><%= error %></div>
+    <% } %>
+
+    <!-- Checkout Section -->
+    <section class="page-content checkout-section">
+        <h1>Checkout</h1>
+
+        <!-- Order Summary -->
+        <div class="checkout-container">
+
+            <!-- Left: Customer Details Form -->
+            <div class="checkout-form-wrapper">
+                <h2>Your Details</h2>
+                <form action="/checkout" method="POST" class="checkout-form" id="checkout-form">
+
+                    <div class="checkout-field">
+                        <label for="customerName">Full Name</label>
+                        <input type="text" id="customerName" name="customerName" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="checkout-field">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                    </div>
+
+                    <div class="checkout-field">
+                        <label for="address">Delivery Address</label>
+                        <textarea id="address" name="address" rows="3" placeholder="Enter your complete address" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-place-order">Place Order</button>
+                </form>
+            </div>
+
+            <!-- Right: Order Summary -->
+            <div class="checkout-summary">
+                <h2>Order Summary</h2>
+                <div class="checkout-items">
+                    <% cart.forEach(function(item) { %>
+                        <div class="checkout-item">
+                            <img src="<%= item.image %>" alt="<%= item.name %>">
+                            <div class="checkout-item-info">
+                                <p class="checkout-item-name"><%= item.name %></p>
+                                <p class="checkout-item-qty">Qty: <%= item.quantity %></p>
+                            </div>
+                            <p class="checkout-item-price">Rs. <%= (item.price * item.quantity).toLocaleString() %></p>
+                        </div>
+                    <% }); %>
+                </div>
+                <div class="checkout-total">
+                    <span>Total:</span>
+                    <span>Rs. <%= grandTotal.toLocaleString() %></span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Order Placed Popup -->
+    <div class="order-popup-overlay" id="orderPopup">
+        <div class="order-popup">
+            <div class="order-popup-icon">&#10004;</div>
+            <h2>Order Placed!</h2>
+            <p>Your order has been placed successfully. We will deliver it to your address soon.</p>
+            <a href="/" class="btn-popup-home">Continue Shopping</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+              <h4>Customer Support</h4>
+             <ul>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">FAQs</a></li>
+                <li><a href="#">Shipping Policy</a></li>
+                <li><a href="#">Returns & Exchanges</a></li>
+             </ul>
+            </div>
+             <div class="footer-column">
+                <h4>About Cougar</h4>
+                <ul>
+                    <li><a href="#">FAQ'S</a></li>
+                    <li><a href="#">Log in/Sign Up</a></li>
+                    <li><a href="#">Shipping &amp; Deliveries</a></li>
+                    <li><a href="#">Order Cancellation</a></li>
+                    <li><a href="#">Blogs &amp; News</a></li>
+                </ul>
+            </div>
+             <div class="footer-column">
+                <h4>Get To Know Us</h4>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Feedback / Complaint</a></li>
+                    <li><a href="#">Track Your Order</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Return &amp; Exchange Policy</a></li>
+                    <li><a href="#">Terms And Condition</a></li>
+                </ul>
+            </div>
+                <div class="newsletter">
+                    <h4>Subscribe to our Newsletter</h4>
+                    <p>Get updates on sales, new arrivals, and exclusive offers.by entering the correct details, you may get our latest updates on your entered email, don't forget to enter your credentials here.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+
+    <script>
+        // Check if the URL has ?orderPlaced=true to show the popup
+        if (window.location.search.indexOf("orderPlaced=true") !== -1) {
+            document.getElementById("orderPopup").classList.add("active");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product - Cougar Admin</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+    <!-- ========== SIDEBAR ========== -->
+    <div class="admin-sidebar">
+        <h2 class="sidebar-logo">COUGAR</h2>
+        <p class="sidebar-subtitle">Admin Panel</p>
+        <nav class="sidebar-nav">
+            <a href="/admin">Dashboard</a>
+            <a href="/admin/add">Add Product</a>
+            <a href="/admin/orders">Orders</a>
+            <a href="/">Back to Store</a>
+        </nav>
+    </div>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <div class="admin-main">
+
+        <h1>Edit Product</h1>
+
+        <!-- Show error messages if validation failed -->
+        <% if (typeof error !== "undefined" && error) { %>
+            <div class="alert alert-error"><%= error %></div>
+        <% } %>
+
+        <!--
+            FORM to update an existing product.
+            The action URL includes the product ID so the server knows which product to update.
+            enctype="multipart/form-data" is needed because we allow image re-upload.
+        -->
+        <form action="/admin/edit/<%= product._id %>" method="POST" enctype="multipart/form-data" class="product-form">
+
+            <!-- Product Name - pre-filled with existing value -->
+            <div class="form-group">
+                <label for="name">Product Name</label>
+                <input type="text" id="name" name="name" value="<%= product.name %>" required>
+            </div>
+
+            <!-- Price - pre-filled -->
+            <div class="form-group">
+                <label for="price">Price (Rs.)</label>
+                <input type="number" id="price" name="price" value="<%= product.price %>" min="0" required>
+            </div>
+
+            <!-- Category - pre-filled -->
+            <div class="form-group">
+                <label for="category">Category</label>
+                <input type="text" id="category" name="category" value="<%= product.category %>" required>
+            </div>
+
+            <!-- Section dropdown - pre-selects the current section -->
+            <div class="form-group">
+                <label for="section">Section</label>
+                <select id="section" name="section" required>
+                    <option value="Men" <%= product.section === "Men" ? "selected" : "" %>>Men</option>
+                    <option value="Women" <%= product.section === "Women" ? "selected" : "" %>>Women</option>
+                    <option value="Kids" <%= product.section === "Kids" ? "selected" : "" %>>Kids</option>
+                    <option value="New Arrivals" <%= product.section === "New Arrivals" ? "selected" : "" %>>New Arrivals</option>
+                    <option value="Sale" <%= product.section === "Sale" ? "selected" : "" %>>Sale</option>
+                </select>
+            </div>
+
+            <!-- Stock - pre-filled -->
+            <div class="form-group">
+                <label for="stock">Stock</label>
+                <input type="number" id="stock" name="stock" value="<%= product.stock %>" min="0" required>
+            </div>
+
+            <!-- Rating - pre-filled -->
+            <div class="form-group">
+                <label for="rating">Rating (0-5)</label>
+                <input type="number" id="rating" name="rating" value="<%= product.rating %>" min="0" max="5" step="0.1" required>
+            </div>
+
+            <!-- Current Image Preview -->
+            <!-- Show the current image so admin knows what's already uploaded -->
+            <div class="form-group">
+                <label>Current Image</label>
+                <% if (product.image) { %>
+                    <img src="<%= product.image %>" alt="Current Image" class="preview-img">
+                <% } else { %>
+                    <p>No image uploaded</p>
+                <% } %>
+            </div>
+
+            <!-- New Image Upload (optional) -->
+            <!-- If admin uploads a new image, it replaces the old one. If left empty, old image stays -->
+            <div class="form-group">
+                <label for="image">Upload New Image (optional)</label>
+                <input type="file" id="image" name="image" accept="image/*">
+                <small>Leave empty to keep the current image.</small>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="btn-submit">Save Changes</button>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

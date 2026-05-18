@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product - Cougar Admin</title>
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+    <!-- ========== SIDEBAR (same as dashboard) ========== -->
+    <div class="admin-sidebar">
+        <h2 class="sidebar-logo">COUGAR</h2>
+        <p class="sidebar-subtitle">Admin Panel</p>
+        <nav class="sidebar-nav">
+            <a href="/admin">Dashboard</a>
+            <a href="/admin/add" class="active">Add Product</a>
+            <a href="/admin/orders">Orders</a>
+            <a href="/">Back to Store</a>
+        </nav>
+    </div>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <div class="admin-main">
+
+        <h1>Add New Product</h1>
+
+        <!-- Show error messages if validation failed -->
+        <% if (typeof error !== "undefined" && error) { %>
+            <div class="alert alert-error"><%= error %></div>
+        <% } %>
+
+        <!--
+            FORM to add a new product.
+            enctype="multipart/form-data" is REQUIRED for file uploads (Multer needs this).
+            The form sends data to POST /admin/add
+        -->
+        <form action="/admin/add" method="POST" enctype="multipart/form-data" class="product-form">
+
+            <!-- Product Name -->
+            <div class="form-group">
+                <label for="name">Product Name</label>
+                <input type="text" id="name" name="name" placeholder="e.g. Slim Fit Shirt" required>
+            </div>
+
+            <!-- Price -->
+            <div class="form-group">
+                <label for="price">Price (Rs.)</label>
+                <input type="number" id="price" name="price" placeholder="e.g. 3500" min="0" required>
+            </div>
+
+            <!-- Category (text input so admin can type any category) -->
+            <div class="form-group">
+                <label for="category">Category</label>
+                <input type="text" id="category" name="category" placeholder="e.g. Shirts, Jeans, Shoes" required>
+            </div>
+
+            <!-- Section dropdown (must match existing sections) -->
+            <div class="form-group">
+                <label for="section">Section</label>
+                <select id="section" name="section" required>
+                    <option value="">-- Select Section --</option>
+                    <option value="Men">Men</option>
+                    <option value="Women">Women</option>
+                    <option value="Kids">Kids</option>
+                    <option value="New Arrivals">New Arrivals</option>
+                    <option value="Sale">Sale</option>
+                </select>
+            </div>
+
+            <!-- Stock quantity -->
+            <div class="form-group">
+                <label for="stock">Stock</label>
+                <input type="number" id="stock" name="stock" placeholder="e.g. 100" min="0" required>
+            </div>
+
+            <!-- Rating (0 to 5, allows decimals like 4.5) -->
+            <div class="form-group">
+                <label for="rating">Rating (0-5)</label>
+                <input type="number" id="rating" name="rating" placeholder="e.g. 4.5" min="0" max="5" step="0.1" required>
+            </div>
+
+            <!-- Image Upload -->
+            <!-- This file input lets the admin pick an image from their computer -->
+            <div class="form-group">
+                <label for="image">Product Image</label>
+                <input type="file" id="image" name="image" accept="image/*">
+                <small>Upload a product image (JPG, PNG). Leave empty to use no image.</small>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="btn-submit">Add Product</button>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

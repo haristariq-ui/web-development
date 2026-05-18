@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Cougar Clothing Store</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <div class="announcement-bar">
+        FLAT 50% OFF ON ALL PRODUCTS-<a href="/sale">SHOP NOW</a>
+    </div>
+    <header class="header" id="main-header">
+        <nav class="nav-left" id="nav-menu">
+            <a href="/sale" class="sale-link">Sale</a>
+            <a href="/onsale-products">On Sale</a>
+            <a href="/men">Men</a>
+            <a href="/women">Women</a>
+            <a href="/kids">Kids</a>
+            <a href="/new-arrivals">New Arrivals</a>
+            <% if (typeof currentUser !== "undefined" && currentUser) { %>
+                <% if (currentUser.role === "admin") { %>
+                    <a href="/admin" class="admin-link">Admin</a>
+                <% } else { %>
+                    <a href="/cart" class="cart-link">&#128722; Cart (<%= typeof cartCount !== "undefined" ? cartCount : 0 %>)</a>
+                    <a href="/my-orders" class="orders-link">My Orders</a>
+                <% } %>
+                <a href="/logout">Logout</a>
+            <% } else { %>
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            <% } %>
+        </nav>
+        <div class="logo">
+            <a href="/">COUGAR</a>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">&#9776;</button>
+    </header>
+
+    <!-- Flash Messages -->
+    <% if (typeof success !== "undefined" && success.length > 0) { %>
+        <div class="flash-bar flash-success"><%= success %></div>
+    <% } %>
+    <% if (typeof error !== "undefined" && error.length > 0) { %>
+        <div class="flash-bar flash-error"><%= error %></div>
+    <% } %>
+
+    <!-- My Orders Section -->
+    <section class="page-content my-orders-section">
+        <h1>My Orders</h1>
+
+        <% if (orders.length > 0) { %>
+
+            <% orders.forEach(function(order, index) { %>
+                <div class="my-order-card">
+                    <!-- Order Header -->
+                    <div class="my-order-header">
+                        <div>
+                            <h3>Order #<%= index + 1 %></h3>
+                            <p class="my-order-date">
+                                Placed on: <%= new Date(order.orderDate).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" }) %>
+                            </p>
+                        </div>
+                        <div class="my-order-header-right">
+                            <span class="my-status-badge my-status-<%= order.status ? order.status.toLowerCase() : 'pending' %>">
+                                <%= order.status || "Pending" %>
+                            </span>
+                            <span class="my-order-total">Rs. <%= order.totalAmount.toLocaleString() %></span>
+                        </div>
+                    </div>
+
+                    <!-- Items -->
+                    <div class="my-order-items">
+                        <% order.items.forEach(function(item) { %>
+                            <div class="my-order-item">
+                                <img src="<%= item.image %>" alt="<%= item.name %>">
+                                <div class="my-order-item-info">
+                                    <p class="my-order-item-name"><%= item.name %></p>
+                                    <p class="my-order-item-qty">Qty: <%= item.quantity %></p>
+                                </div>
+                                <p class="my-order-item-price">Rs. <%= (item.price * item.quantity).toLocaleString() %></p>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+            <% }); %>
+
+        <% } else { %>
+            <div class="cart-empty">
+                <p class="empty-icon">&#128230;</p>
+                <h2>No Orders Yet</h2>
+                <p>You haven't placed any orders yet.</p>
+                <a href="/" class="btn-continue-shopping">Start Shopping</a>
+            </div>
+        <% } %>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+              <h4>Customer Support</h4>
+             <ul>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">FAQs</a></li>
+                <li><a href="#">Shipping Policy</a></li>
+                <li><a href="#">Returns & Exchanges</a></li>
+             </ul>
+            </div>
+             <div class="footer-column">
+                <h4>About Cougar</h4>
+                <ul>
+                    <li><a href="#">FAQ'S</a></li>
+                    <li><a href="#">Log in/Sign Up</a></li>
+                    <li><a href="#">Shipping &amp; Deliveries</a></li>
+                    <li><a href="#">Order Cancellation</a></li>
+                    <li><a href="#">Blogs &amp; News</a></li>
+                </ul>
+            </div>
+             <div class="footer-column">
+                <h4>Get To Know Us</h4>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Feedback / Complaint</a></li>
+                    <li><a href="#">Track Your Order</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Return &amp; Exchange Policy</a></li>
+                    <li><a href="#">Terms And Condition</a></li>
+                </ul>
+            </div>
+                <div class="newsletter">
+                    <h4>Subscribe to our Newsletter</h4>
+                    <p>Get updates on sales, new arrivals, and exclusive offers.by entering the correct details, you may get our latest updates on your entered email, don't forget to enter your credentials here.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
